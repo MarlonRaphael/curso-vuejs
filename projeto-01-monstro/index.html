@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pr-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Matador de Monstro</title>
+
+  <link href="style.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+  <script src="https://unpkg.com/vue"></script>
+
+</head>
+<body>
+
+<div id="app">
+  <div class="container-fluid">
+    <div class="container">
+
+      <div class="row my-5 p-5 bg-white shadow scores">
+        <div class="col-5 text-center">
+          <h3>{{ player1.name }}</h3>
+          <div class="progress">
+            <div :class="['progress-bar', lifeStatus(player1.life)]"
+                 :style="{width: `${player1.life}%`}" role="progressbar"
+                 :aria-valuenow="player1.life" aria-valuemin="0" aria-valuemax="100">{{ player1.life }}%</div>
+          </div>
+        </div>
+        <div class="offset-2 col-5 text-center">
+          <h3>{{ player2.name }}</h3>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" :style="{width: `${player2.life}%`}"
+                 :aria-valuenow="player2.life" aria-valuemin="0" aria-valuemax="100">{{ player2.life }}%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5" v-if="hasResult">
+        <div class="card p-5 shadow text-center result">
+          <div class="win" v-if="player2.life === 0">
+            <h2 class="text-success">Você ganhou! :)</h2>
+          </div>
+          <div class="lose" v-if="player1.life === 0">
+            <h2 class="text-danger">Você perdeu! :(</h2>
+          </div>
+          <div class="lose"></div>
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="card p-3 shadow buttons">
+          <div class="card-body text-center">
+              <div class="d-block" v-if="running">
+              <button class="btn mx-3 btn-danger" type="button" @click="attack(false)">ATAQUE</button>
+              <button class="btn mx-3 btn-warning" type="button" @click="attack(true)">ESPECIAL</button>
+              <button class="btn mx-3 btn-success" type="button">CURAR</button>
+              <button class="btn mx-3 btn-secondary" type="button" @click="endGame">DESISTIR</button>
+            </div>
+            <div class="d-block" v-else>
+              <button class="btn btn-primary px-5" type="button" @click="startGame">JOGAR NOVAMENTE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="card p-5 shadow logs">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+.scores {
+    justify-content: center;
+    align-items: center;
+}
+
+.scores h3 {
+    font-weight: 300 !important;
+}
+
+.progress {
+    height: 40px !important;
+    padding: 0 !important;
+}
