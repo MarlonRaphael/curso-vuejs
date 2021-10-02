@@ -56,7 +56,7 @@
               <div class="d-block" v-if="running">
               <button class="btn mx-3 btn-danger" type="button" @click="attack(false)">ATAQUE</button>
               <button class="btn mx-3 btn-warning" type="button" @click="attack(true)">ESPECIAL</button>
-              <button class="btn mx-3 btn-success" type="button">CURAR</button>
+              <button class="btn mx-3 btn-success" type="button" @click="healAndHurt">CURAR</button>
               <button class="btn mx-3 btn-secondary" type="button" @click="endGame">DESISTIR</button>
             </div>
             <div class="d-block" v-else>
@@ -66,9 +66,14 @@
         </div>
       </div>
 
-      <div class="row my-5">
+      <div class="row my-5" v-if="logs.length">
         <div class="card p-5 shadow logs">
-
+          <template v-for="log in logs">
+            <div :class="['alert', log.cls, 'alert-dismissible', 'fade', 'show']" role="alert">
+              <strong>{{ log.text }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </template>
         </div>
       </div>
 
