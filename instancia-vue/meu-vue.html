@@ -1,0 +1,51 @@
+<meta charset="UTF-8">
+
+<div id="app">
+  {{ nome }} {{ sobrenome }} {{ 10 + 10 }} {{ Math.pow(2, 3) }}
+</div>
+
+<script>
+  function MeuVeu(params) {
+    this.$el = document.querySelector(params.el)
+    this.$data = params.data
+
+    for (let attr in this.$data) {
+      Object.defineProperty(this, attr, {
+        get: () => {
+          return this.$data[attr]
+        },
+        set: value => {
+          this.$data[attr] = value
+        }
+      })
+    }
+
+    // Interpolação
+    const regex = /\{\{([\s\w)(,.+*-]*)\}\}/g
+
+    this.$el.innerHTML = this.$el.innerHTML.replace(regex, (match, $1) => {
+      const value = this[$1.trim()]
+      return value ? value : eval($1)
+    })
+  }
+
+  const  vm = new MeuVeu({
+    el: '#app',
+    data: {
+      nome: 'Maria',
+      sobrenome: 'da Silva'
+    }
+  })
+
+  console.log(vm.nome)
+  console.log(vm.$data.nome)
+
+  vm.nome = 'Pedro'
+  console.log(vm.nome)
+  console.log(vm.$data.nome)
+
+  // vm.idade = 27
+  // console.log(vm.idade)
+  // console.log(vm.$data.idade)
+
+</script>
