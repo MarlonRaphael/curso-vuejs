@@ -3,14 +3,20 @@
 		<h1>Filtros & Mixins (Desafio)</h1>
 		<!-- Exercício 1 -->
 		<!-- Construir um filtro local que troca espaços por vírgula -->
-		
+    <p>Filter: {{ fullName | replaceSpaceFromComma }}</p>
+    <p>Filter: {{ fullName | replace-space-from-comma }}</p>
+
 		<!-- Exercício 2 -->
-		<!-- Filtro global que conta o tamanho de cada palavra e adiciona o 
+		<!-- Filtro global que conta o tamanho de cada palavra e adiciona o
 			valor na string final -->
 		<!-- "Pedro é legal" => "Pedro (5) é (1) legal (5)" -->
+    <p>Filter: {{ 'Fernanda está grávida' | countWords }}</p>
+    <hr>
 
 		<!-- Exercício 3 -->
 		<!-- Implementar os exercicios 1 e 2 com propriedade computada -->
+    <p>Computed: {{ fullNameFn }}</p>
+    <p>Computed: {{ countWordsFn }}</p>
 
 		<!-- Exercício 4 -->
 		<!-- Compartilhe a propriedade computada via mixin -->
@@ -18,8 +24,21 @@
 </template>
 
 <script>
+import utilsMixin from "./utilsMixin";
+
 export default {
-	
+  mixins: [utilsMixin],
+  data() {
+    return {
+      fullName: 'Marlon Raphael D Amaral',
+      phrase: 'Fernanda está grávida'
+    }
+  },
+  filters: {
+    replaceSpaceFromComma(value) {
+      return `${value}`.replace(/\s/g, ',')
+    }
+  }
 }
 </script>
 
